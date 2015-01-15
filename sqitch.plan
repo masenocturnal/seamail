@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=mailserver
+%uri=ns2:/srv/git/servers/mailtest/db.git
+
