@@ -2,3 +2,4 @@
 %project=mailserver
 %uri=ns2:/srv/git/servers/mailtest/db.git
 
+insert_tables 2015-01-15T03:44:43Z Andrew Mason <andrew@nocturnal.net.au> # Insert Tables
