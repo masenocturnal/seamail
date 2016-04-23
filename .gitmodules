@@ -1,0 +1,12 @@
+[submodule "dovecot"]
+	path = dovecot
+	url = git@github.com:masenocturnal/dovecot.git
+	branch = master
+[submodule "postfix"]
+	path = postfix
+	url = git@github.com:masenocturnal/postfix.git
+	branch = master
+[submodule "amavis"]
+	path = amavis
+	url = git@github.com:masenocturnal/amavis.git
+	branch = master
