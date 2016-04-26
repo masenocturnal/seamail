@@ -1,12 +1,13 @@
 # Intro
 
-Email sucks; It's hard to manage, needs constant minding na but we need it.  It's currently the defacto standard of electronic communication between organisations. 
+Email sucks; It's hard to manage, needs constant managing but we need it.  It's currently the de facto standard of electronic communication between organisations. 
 
 Many organisations and individuals would like to have the privacy, security and control guarantees that come with owning and operating their own mail server. 
-The practical reality is that they often aren't in the position to support their own mail setup. Even seasoned admins and developers often can't spare the time to keep the server
-ticking along. 
+The practical reality is that they often aren't in the position to support their own mail setup. Even seasoned admins and developers often can't spare the time to keep the server up to date
+and having a single administrator can be a bottleneck. 
 
-The alternative currently is to outsource the problem. Delegating the responsibility to 3rd parties such as Google, Microsoft and Protonmail. So let's make mail as easy as possible. 
+The alternative currently is to out source the problem. Delegating the responsibility to 3rd parties such as Google, Microsoft and Protonmail. There needs to be a middle ground.  
+So let's make mail as easy as possible to setup and administer. 
 
 
 ## What does this mean ?
@@ -16,14 +17,14 @@ No fighting with SPAM, instant webmail, up to date statistics and the ability so
 
 
  * Multi-domain,
- * Multi-tennant
+ * Multi-tenant
  * Standards compliant. 
 
 We use the best components to allow you to run your own mailserver without the time and the effort typically devoted to administering your own server. 
 
  - Postfix 
  - Dovecot 
- - Amavis
+ - SpamAssassin
  - MailRoom 
  - Round Cube
 
@@ -36,7 +37,7 @@ your letter to your local postoffice and your postoffice looks up the Post(zip) 
 
 Now in this instance we have a post office of our own. This is the MTA or Mail Transfer Agent. We use Postfix for this.  
 Postfix accepts email from it's local users on port 587 (often referred to as the submission port). It also accepts mail from other post offices (MTA's) on port 25.
-Mail is transfered from one node to another using a protocol called SMTP (Simple Mail Transfer Protocol) 
+Mail is transferred from one node to another using a protocol called SMTP (Simple Mail Transfer Protocol) 
 
 Just like mail in real life, the rules for accepting mail in these two scenarios is different. 
 
@@ -74,7 +75,7 @@ The most common example is that anything with a spam tag will go in the Spam fol
 ### Pickup
 
 Now that the mail has been written to disk, we need some way for an external client to check their mail. An external client in this instance is a Mail User Agent (MUA). Mozilla Thunderbird, Outlook, 
-K9Mail Mail.App are all examples of MUAs. The MUA talks IMAP (Internet Message Access Protocol) to our server on port 993. We again use a Dovecot component to provide this functionality. Dovecot IMAP.
+K9Mail and Mail.App are all examples of MUAs. The MUA talks IMAP (Internet Message Access Protocol) to our server on port 993. We again use a Dovecot component to provide this functionality. Dovecot IMAP.
 
 
 ### MariaDB ?
@@ -164,7 +165,8 @@ working sqitch install. Mysql::Config is required if you wish to use a ~/.my.cnf
     
     $ mysql 
 
- 
+## Database Schema
+ @todo 
 
 ### Creating Passwords 
 update virtual_users set password_hash = ENCRYPT('test',CONCAT('$6$', hash_salt )) where id=1;
