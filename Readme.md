@@ -128,22 +128,28 @@ e.g
     @todo
 
 ### Single machine setup
-    $ apt-get install \
+    $ sudo apt-get install \
     postfix \
     postfix-mysql \
     sasl2-bin \ 
-    ovecot-core \
+    dovecot-common \
     dovecot-mysql \
     dovecot-imapd \
     dovecot-lmtpd \
     dovecot-managesieved \ 
-    git-core    
+    git-core
+
+- could not find package dovecot-mysql? 
+    
+- You will be asked about default configurations and ssl certs - say no to these as they will be setup later.        
 
 ### Sqitch
 Unfortunately the 14.04 sqitch package is broken so cpan or cpanm seem to be the only mechanism of getting a 
 working sqitch install. Mysql::Config is required if you wish to use a ~/.my.cnf for authenticationn (recommended for development) 
 
     $ sudo cpan App::Sqitch DBD::mysql Mysql::Config
+
+- Received: Warning: Cannot not install Mysql::Config, don't know what it is.
 
 @todo test
 
@@ -158,6 +164,8 @@ working sqitch install. Mysql::Config is required if you wish to use a ~/.my.cnf
     $ git clone https://github.com/masenocturnal/seamail.git
     $ cd seamail
     $ git submodule update --init --remote --recursive
+    
+- Could not clone submodule amavis, not enough access rights?    
     
 ### Deploy Databases
 
