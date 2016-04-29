@@ -147,11 +147,14 @@ e.g
 Unfortunately the 14.04 sqitch package is broken so cpan or cpanm seem to be the only mechanism of getting a 
 working sqitch install. Mysql::Config is required if you wish to use a ~/.my.cnf for authenticationn (recommended for development) 
 
-    $ sudo cpan App::Sqitch DBD::mysql Mysql::Config
+    $ sudo perl -MCPAN -e 'install App::Sqitch DBD::mysql' 
+    $ sudo perl -MCPAN -e 'install MySQL::Config'
+    $ echo "[client]
+host=localhost
+user=root
+password=<thisisnotmypassword>" >> ~/.my.cnf
 
-- Received: Warning: Cannot not install Mysql::Config, don't know what it is.
 
-@todo test
 
 ### Docker
  @ todo
@@ -171,7 +174,7 @@ working sqitch install. Mysql::Config is required if you wish to use a ~/.my.cnf
 
     $ sqitch deploy dev
     
-    $ mysql 
+    $ mysql mailtest 
 
 ## Database Schema
  @todo 
