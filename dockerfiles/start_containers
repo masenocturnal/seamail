@@ -2,6 +2,8 @@
 postfix_image="ubuntu:16.04"
 postfix_src_config=`readlink -f "../postfix"`
 postfix_dest_config="/tmp/postfix"
+# You need a network setup in docker for this
+postfix_ip='10.8.8.4'
 
 # Am I running?
 imageID=`docker ps -f names=$postfix_image|sed -n 2p| awk -e '{print $1}'`
@@ -9,7 +11,7 @@ imageID=`docker ps -f names=$postfix_image|sed -n 2p| awk -e '{print $1}'`
 if [[ -z $imageID ]]; then
     echo "Image not running "
     echo "Starting it up for you"
-    docker run -it --name postfix --rm -v $postfix_src_config:$postfix_dest_config $postfix_image /bin/bash
+    docker run -it --name postfix --rm --net dev --ip $postfix_ip -v $postfix_src_config:$postfix_dest_config $postfix_image /bin/bash
     wait $!
 
 else 
@@ -20,13 +22,3 @@ else
     echo "Boom!"
 fi
 
-#MWM Containers 
-#docker stop 
-#docker rm mwm_php
-#docker run -d --name mwm_php --net dev  --ip 10.8.8.2 -v /home/am/projects/phalcontest:/srv/www/mwm mwm/php
-
-
-# NGINX
-#docker stop mwm_web
-#docker rm mwm_web
-#docker run -d --name mwm_web --net dev  --ip 10.8.8.3 -v /home/am/projects/phalcontest:/srv/www/mwm --link mwm_php:mwm_php mwm/nginx
