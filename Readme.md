@@ -94,8 +94,39 @@ so you can see exactly how and why this is all glued together the way it is.
 
 ## Getting Started (Development) 
 
-Initial configuration targets Ubuntu 14.04 however with 16.04 just being released we will upgrade shortly. 
+Initial configuration targets 16.04. 
 It is intended to be deployable cross distro and the effort to make this happen is minimal. It just hasn't been done yet. Contributions are welcome. 
+
+### Git
+
+    $ git clone https://github.com/masenocturnal/seamail.git
+    $ cd seamail
+    $ git submodule update --init --remote --recursive
+
+## Easy Way
+
+    
+### Docker 
+
+Doesn't work 100% just yet
+  
+    $ cd Dockerfiles
+    $ ./mk_images (only required on first setup)
+    $ ./start_containers
+     
+### Vagrant (windows)
+Also not working 
+    
+    vagrant up --provider=hyperv
+
+### Vagrant (Linux)
+
+    vagrant up --provider=libvirt
+
+
+## Hard Way
+
+This works but involves more work.
 
 ### Base system
 To begin with, install a base 16.04 system.
@@ -154,12 +185,6 @@ host=localhost
 user=root
 password=<thisisnotmypassword>" >> ~/.my.cnf
 
-
-
-### Docker
- @ todo
-### Vagrant 
- @ todo
 
 ### Git
 
