@@ -1,0 +1,12 @@
+FROM ubuntu:16.04
+MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN useradd -b /var/spool/mail vmail
+EXPOSE 25
+EXPOSE 465
+EXPOSE 587
+## we use apt-get b/c apt doesn't have a stable CLI interface yet
+RUN apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common 
+
+CMD ['/usr/sbin/postfix', 'start']

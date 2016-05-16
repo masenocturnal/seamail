@@ -1,0 +1,13 @@
+FROM ubuntu:16.04
+MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN useradd -b /var/spool/mail vmail
+RUN useradd -b /home/quota quota_warning
+
+RUN apt-get update && apt-get install dovecot-mysql dovecot-imapd dovecot-lmtpd dovecot-managesieved 
+
+VOLUME ../dovecot /etc/dovecot
+
+EXPOSE 993
+CMD /usr/sbin/dovecot -F -c /etc/dovecot/dovecot.conf
