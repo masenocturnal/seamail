@@ -9,4 +9,6 @@ EXPOSE 587
 ## we use apt-get b/c apt doesn't have a stable CLI interface yet
 RUN apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common 
 
+#VOLUME ["../postfix", "/etc/postfix"]
+
 CMD ["/usr/sbin/postfix", "start"]

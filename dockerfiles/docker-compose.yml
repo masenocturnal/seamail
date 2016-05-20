@@ -1,0 +1,41 @@
+version: '2'
+services:
+  postfix:
+    build: ./Dockerfile.postfix
+    image: nocturnal/postfix:latest    
+    ports:
+      - "80:80"
+    volumes:
+      - ../postfix:/etc/postfix
+    depends_on:
+      - dovecot
+    links:
+      - dovecot
+    networks:
+      dev:
+        ipv4_address: 172.28.0.3
+  dovecot:
+    build: ./Dockerfile.dovecot
+    image: nocturnal/dovecot:latest
+    ports: 
+     - 993
+     - 143
+    networks:
+      dev:
+        ipv4_address: 172.28.0.2
+    volumes: 
+     - ../dovecot:/etc/dovecot
+
+networks:
+  dev:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge_name: "dev"
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+          ip_range: 172.28.5.0/24
+          gateway: 172.28.5.254
+      
