@@ -1,6 +1,24 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+module OS
+    def OS.windows
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.mac
+        (/darwin/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.unix
+        !OS.windows
+    end
+
+    def OS.linux
+        OS.unix and not OS.mac
+    end
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -14,11 +32,16 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   
   # use this for windows
-  #config.vm.box = "nikel/xerus64"
+  if OS.windows  
+    puts "is_windows_host: #{OS.windows}"
+	config.vm.box = "nikel/xerus64"
+  end
 
   # use this for Linux 
-  config.vm.box = "geerlingguy/ubuntu1604"
-  #config.vm.hostname = "shipyard"
+  if OS.linux
+    config.vm.box = "geerlingguy/ubuntu1604"
+    config.vm.hostname = "shipyard"
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -43,19 +66,26 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder ".", "/home/vagrant/seafile"
+  config.vm.synced_folder ".", "/home/vagrant/seamail"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   
-  config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-     vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-     vb.memory = "1024"
+  if OS.windows
+	  config.vm.provider "hyperv" do |vb|
+		 # Customize the amount of memory on the VM:
+		 vb.memory = "1024"
+	   end
+   else
+	  config.vm.provider "virtualbox" do |vb|
+		 # Customize the amount of memory on the VM:
+		 vb.gui = true
+		 vb.memory = "1024"
+	   end   
    end
+   
+   
   #
   # View the documentation for the provider you are using for more
   # information on available options.
