@@ -7,8 +7,10 @@ EXPOSE 25
 EXPOSE 465
 EXPOSE 587
 ## we use apt-get b/c apt doesn't have a stable CLI interface yet
-RUN apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common 
+RUN apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common supervisor
 
 #VOLUME ["../postfix", "/etc/postfix"]
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/sbin/postfix", "start"]

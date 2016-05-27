@@ -11,4 +11,4 @@ RUN apt-get -y install dovecot-mysql dovecot-imapd dovecot-lmtpd dovecot-manages
 #VOLUME ["../dovecot", "/etc/dovecot"]
 
 EXPOSE 993
-CMD ["/usr/sbin/dovecot", "-F", "-c /etc/dovecot/dovecot.conf"] 
+CMD ["/usr/sbin/dovecot", "-F", "-c", "/etc/dovecot/dovecot.conf"] 

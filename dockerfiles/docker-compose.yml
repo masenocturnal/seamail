@@ -23,6 +23,6 @@ services:
      - 993
      - 143
     volumes: 
-      - "../dovecot:/tmp"
+      - "/dovecot:/etc/dovecot"
 
       
