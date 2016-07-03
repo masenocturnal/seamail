@@ -7,10 +7,14 @@ EXPOSE 25
 EXPOSE 465
 EXPOSE 587
 ## we use apt-get b/c apt doesn't have a stable CLI interface yet
-RUN apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common supervisor
+RUN apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common wget supervisor rsyslog
 
 #VOLUME ["../postfix", "/etc/postfix"]
 
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+## Should probably do this at build time 
+RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.1/dumb-init_1.1.1_amd64
+RUN chmod +x /usr/local/bin/dumb-init
+ADD supervisord.conf /etc/supervisord.conf
+ADD rsyslog.d/50-default.conf /etc/rsyslog.d/
 
-CMD ["/usr/sbin/postfix", "start"]
+CMD ["/usr/local/bin/dumb-init", "supervisord",  "-c", "/etc/supervisord.conf"]
