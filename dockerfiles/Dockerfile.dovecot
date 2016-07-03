@@ -2,11 +2,12 @@ FROM ubuntu:16.04
 MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN useradd -b /var/spool/mail vmail
-RUN useradd -b /home/quota quota_warning
-
 RUN apt-get update 
 RUN apt-get -y install dovecot-mysql dovecot-imapd dovecot-lmtpd dovecot-managesieved dovecot-sieve 
+RUN useradd -b /var/spool/mail vmail
+RUN useradd -b /home/quota quota_warning
+RUN groupadd vmail_delivery
+
 
 #VOLUME ["../dovecot", "/etc/dovecot"]
 
