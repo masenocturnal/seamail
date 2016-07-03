@@ -6,14 +6,14 @@ services:
       dockerfile: ./Dockerfile.postfix
     image: nocturnal/postfix:latest    
     ports:
-      - "80:80"
+      - 25
     volumes:
       - "../postfix:/etc/postfix"
+      - "../dovecot:/etc/dovecot"
     depends_on:
       - dovecot
     links:
       - dovecot
-    
   dovecot:
     build:
       dockerfile: ./Dockerfile.dovecot
@@ -22,7 +22,9 @@ services:
     ports: 
      - 993
      - 143
+     - 2525
+     - 9000
     volumes: 
-      - "/dovecot:/etc/dovecot"
+      - "../dovecot:/etc/dovecot"
 
       
