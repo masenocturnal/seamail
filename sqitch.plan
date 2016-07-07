@@ -3,3 +3,5 @@
 %uri=ns2:/srv/git/servers/mailtest/db.git
 
 insert_tables 2015-01-15T03:44:43Z Andrew Mason <andrew@nocturnal.net.au> # Insert Tables
+setup_postfix_user 2016-07-06T23:32:09Z Andrew Mason <andrew@nocturnal.net.au> # Setup Postfix User
+setup_dovecot_user 2016-07-06T23:32:24Z Andrew Mason <andrew@nocturnal.net.au> # Setup dovecot User
