@@ -7,6 +7,8 @@ services:
     image: nocturnal/postfix:latest    
     ports:
       - 25
+      - 465
+      - 587
     volumes:
       - "../postfix:/etc/postfix"
       - "../dovecot:/etc/dovecot"
@@ -20,6 +22,7 @@ services:
       context: .
     image: nocturnal/dovecot:latest
     ports: 
+     - 225
      - 993
      - 143
      - 2525
