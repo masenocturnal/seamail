@@ -16,6 +16,17 @@ services:
       - dovecot
     links:
       - dovecot
+  rspamd:
+    build:
+      dockerfile: ./Dockerfile.rspamd
+      context: .
+    image: nocturnal/rspamd:latest
+    ports: 
+     - 8080
+    volumes: 
+      - "../dovecot:/etc/dovecot"
+
+
   dovecot:
     build:
       dockerfile: ./Dockerfile.dovecot

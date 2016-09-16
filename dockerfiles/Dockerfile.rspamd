@@ -1,0 +1,16 @@
+FROM ubuntu:16.04
+MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
+ENV DEBIAN_FRONTEND noninteractive
+
+COPY rspamd.gpg.key /tmp/
+RUN apt-key add /tmp/rspamd.gpg.key
+
+RUN echo "deb http://rspamd.com/apt-stable/ xenial main" > /etc/apt/sources.list.d/rspamd.list & \
+ echo "deb-src http://rspamd.com/apt-stable/ xenial main" >> /etc/apt/sources.list.d/rspamd.list &\
+ apt-get update && apt-get -y --no-install-recommends install rspamd
+
+#EXPOSE 80
+
+CMD /bin/bash
+
+#CMD ["/usr/sbin/dovecot", "-F", "-c", "/etc/dovecot/dovecot.conf"] 

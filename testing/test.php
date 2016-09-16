@@ -37,15 +37,17 @@ class Test
     
 }
 
-$t = new Test('172.18.0.3');
-$t->io("HELO localhost");
-$t->io("MAIL FROM: foo@bar.com");
-$t->io("RCPT TO: test.user@example.com");
-$t->io("DATA");
-$t->send(file_get_contents('./message.msg'));
-$t->send("\n");
-$t->send('.');
-$t->send("\r\n");
-$t->io("QUIT\n");
-$t->close();
 
+for($i=0;$i<100;$i++) {
+	$t = new Test('172.18.0.3');
+	$t->io("HELO localhost");
+	$t->io("MAIL FROM: foo@bar.com");
+	$t->io("RCPT TO: test.user@example.com");
+	$t->io("DATA");
+	$t->send(file_get_contents('./message.msg'));
+	$t->send("\n");
+	$t->send('.');
+	$t->send("\r\n");
+	$t->io("QUIT\n");
+	$t->close();
+}
