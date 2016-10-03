@@ -14,8 +14,10 @@ services:
       - "../dovecot:/etc/dovecot"
     depends_on:
       - dovecot
+      - rspamd
     links:
       - dovecot
+      - rspamd
   rspamd:
     build:
       dockerfile: ./Dockerfile.rspamd
@@ -23,10 +25,10 @@ services:
     image: nocturnal/rspamd:latest
     ports: 
      - 8080
+     - 80
+     - 9900 
     volumes: 
-      - "../dovecot:/etc/dovecot"
-
-
+      - "../rspamd:/tmp"
   dovecot:
     build:
       dockerfile: ./Dockerfile.dovecot

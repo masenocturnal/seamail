@@ -8,7 +8,7 @@ RUN groupadd --gid 1001 vmail_delivery
 RUN useradd -b /var/mail/virtual vmail
 RUN mkdir -p /var/mail/virtual
 RUN chown -R root:vmail_delivery /var/mail
-RUN chmod g+rws /var/mail/virtual
+RUN chmod 770 /var/mail/virtual
 RUN useradd -b /home/quota quota_warning
 
 

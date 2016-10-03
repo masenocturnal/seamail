@@ -9,8 +9,7 @@ RUN echo "deb http://rspamd.com/apt-stable/ xenial main" > /etc/apt/sources.list
  echo "deb-src http://rspamd.com/apt-stable/ xenial main" >> /etc/apt/sources.list.d/rspamd.list &\
  apt-get update && apt-get -y --no-install-recommends install rspamd
 
-#EXPOSE 80
+#EXPOSE 9900
+#COPY rspamd.conf /etc/rspamd/rspamd.conf
+CMD ["/usr/bin/rspamd","-f", "-u", "_rspamd", "-g", "_rspamd"]
 
-CMD /bin/bash
-
-#CMD ["/usr/sbin/dovecot", "-F", "-c", "/etc/dovecot/dovecot.conf"] 
