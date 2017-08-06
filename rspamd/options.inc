@@ -1,6 +1,7 @@
 # Included from top-level .conf file
 
-filters = "chartable,dkim,spf,surbl,regexp,fuzzy_check";
+#filters = "chartable,dkim,spf,surbl,regexp,fuzzy_check";
+filters = "chartable,dkim,spf,regexp,fuzzy_check";
 raw_mode = false;
 one_shot = false;
 cache_file = "$DBDIR/symbols.cache";
