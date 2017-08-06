@@ -6,8 +6,7 @@ COPY rspamd.gpg.key /tmp/
 RUN apt-key add /tmp/rspamd.gpg.key
 
 RUN echo "deb http://rspamd.com/apt-stable/ xenial main" > /etc/apt/sources.list.d/rspamd.list & \
- echo "deb-src http://rspamd.com/apt-stable/ xenial main" >> /etc/apt/sources.list.d/rspamd.list &\
- apt-get update && apt-get -y --no-install-recommends install rspamd
+ apt-get update && apt-get -y --no-install-recommends install rspamd 
 
 #EXPOSE 9900
 #COPY rspamd.conf /etc/rspamd/rspamd.conf

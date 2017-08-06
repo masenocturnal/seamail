@@ -3,16 +3,17 @@ MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN useradd -b /var/spool/mail vmail
-EXPOSE 25
-EXPOSE 465
-EXPOSE 587
-## we use apt-get b/c apt doesn't have a stable CLI interface yet
-RUN apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common wget supervisor rsyslog
+
+COPY rspamd.gpg.key /tmp/
+RUN apt-key add /tmp/rspamd.gpg.key
+RUN echo "deb http://rspamd.com/apt-stable/ xenial main" > /etc/apt/sources.list.d/rspamd.list & \
+ apt-get update && apt-get -y install postfix postfix-mysql postfix-pcre sasl2-bin  dovecot-common wget supervisor rsyslog  --no-install-recommends
 
 #VOLUME ["../postfix", "/etc/postfix"]
 
 ## Should probably do this at build time 
-RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.1/dumb-init_1.1.1_amd64
+# wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.1/dumb-init_1.1.1_amd64 && chmod +x /usr/local/bin/dumb-init
+COPY ./dumb-init_1.1.1_amd64 /usr/local/bin/dumb-init 
 RUN chmod +x /usr/local/bin/dumb-init
 ADD supervisord.conf /etc/supervisord.conf
 ADD rsyslog.d/50-default.conf /etc/rsyslog.d/
