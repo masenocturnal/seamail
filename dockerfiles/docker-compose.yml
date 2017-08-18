@@ -13,11 +13,8 @@ services:
       - "../postfix:/etc/postfix"
       - "../dovecot:/etc/dovecot"
     depends_on:
-#      - dovecot
       - rspamd
-    links:
-#      - dovecot
-      - rspamd
+      - dovecot
   rspamd:
     build:
       dockerfile: ./Dockerfile.rspamd
@@ -26,21 +23,20 @@ services:
     ports: 
      - 8080
      - 80
-     - 9900 
+     - 9900
+     - 11332
     volumes: 
       - "../rspamd:/tmp"
-#  dovecot:
-#    build:
-#      dockerfile: ./Dockerfile.dovecot
-#      context: .
-#    image: nocturnal/dovecot:latest
-#    ports: 
-#     - 225
-#     - 993
-#     - 143
-#     - 2525
-#     - 9000
-#    volumes: 
-#      - "../dovecot:/etc/dovecot"
-
-      
+  dovecot:
+    build:
+      dockerfile: ./Dockerfile.dovecot
+      context: .
+    image: nocturnal/dovecot:latest
+    ports: 
+     - 225
+     - 993
+     - 143
+     - 2525
+     - 9000
+    volumes: 
+      - "../dovecot:/etc/dovecot"
