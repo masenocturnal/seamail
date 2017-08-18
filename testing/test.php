@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 class Test 
@@ -39,7 +40,7 @@ class Test
 
 
 for($i=0;$i<100;$i++) {
-	$t = new Test('172.18.0.3');
+	$t = new Test('172.18.0.4');
 	$t->io("HELO localhost");
 	$t->io("MAIL FROM: foo@bar.com");
 	$t->io("RCPT TO: test.user@example.com");
