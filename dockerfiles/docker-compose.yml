@@ -27,6 +27,13 @@ services:
      - 11332
     volumes: 
       - "../rspamd:/tmp"
+  unbound:
+    build:
+      dockerfile: ./Dockerfile.unbound
+      context: .
+    image: nocturnal/unbound:latest
+    ports: 
+     - 53
   dovecot:
     build:
       dockerfile: ./Dockerfile.dovecot

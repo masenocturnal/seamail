@@ -1,0 +1,10 @@
+FROM ubuntu:16.04
+MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get install -y unbound
+
+EXPOSE 53/udp
+EXPOSE 53/tcp
+
+CMD ["/usr/sbin/unbound", "-d"]
