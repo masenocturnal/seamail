@@ -3,6 +3,7 @@ MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y unbound
+RUN echo "server:\n\tdo-ip6: no" >  /etc/unbound/unbound.conf.d/disable-ipv6.conf
 
 EXPOSE 53/udp
 EXPOSE 53/tcp
