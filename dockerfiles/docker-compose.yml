@@ -1,5 +1,9 @@
 version: '2'
 services:
+  db:
+    image: mariadb
+    env_file:
+      - ./mariadb.env
   postfix:
     build:
       context: .
@@ -13,6 +17,8 @@ services:
       - "../postfix:/etc/postfix"
       - "../dovecot:/etc/dovecot"
     depends_on:
+      - unbound
+      - db
       - rspamd
       - dovecot
   rspamd:
@@ -27,6 +33,9 @@ services:
      - 11332
     volumes: 
       - "../rspamd:/tmp"
+    depends_on:
+      - unbound
+      - db
   unbound:
     build:
       dockerfile: ./Dockerfile.unbound
@@ -47,3 +56,5 @@ services:
      - 9000
     volumes: 
       - "../dovecot:/etc/dovecot"
+    depends_on:
+      - db

@@ -2,10 +2,12 @@ FROM ubuntu:16.04
 MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y unbound
-RUN echo "server:\n\tdo-ip6: no" >  /etc/unbound/unbound.conf.d/disable-ipv6.conf
+RUN apt-get update && apt-get install -y unbound 
+RUN /usr/sbin/unbound-anchor -a /var/lib/unbound/root.key; exit 0;
+RUN echo "server:\n\tdo-ip6: no" > /etc/unbound/unbound.conf.d/disable-ipv6.conf
 
 EXPOSE 53/udp
 EXPOSE 53/tcp
 
 CMD ["/usr/sbin/unbound", "-d"]
+#CMD ["/bin/bash"]

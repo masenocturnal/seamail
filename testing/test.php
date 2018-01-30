@@ -38,9 +38,14 @@ class Test
     
 }
 
+if (!isset($argv[1])) {
+  print("You need an IP Address");
+  exit(1);
+}
 
+$addr = (string)$argv[1];
 for($i=0;$i<100;$i++) {
-	$t = new Test('172.18.0.4');
+	$t = new Test($addr);
 	$t->io("HELO localhost");
 	$t->io("MAIL FROM: foo@bar.com");
 	$t->io("RCPT TO: test.user@example.com");

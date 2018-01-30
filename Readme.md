@@ -185,6 +185,10 @@ host=localhost
 user=root
 password=<thisisnotmypassword>" >> ~/.my.cnf
 
+OR
+
+```export SQITCH_PASSWORD=<mypwd>```
+
 
 ### Git
 
