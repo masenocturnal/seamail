@@ -31,8 +31,9 @@ services:
      - 80
      - 9900
      - 11332
+     - 11334 
     volumes: 
-      - "../rspamd:/tmp"
+      - "../rspamd/override.d:/etc/rspamd/override.d"
     depends_on:
       - unbound
       - db
