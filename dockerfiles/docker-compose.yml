@@ -10,7 +10,7 @@ services:
       dockerfile: ./Dockerfile.postfix
     image: nocturnal/postfix:latest    
     ports:
-      - 25
+      - "127.0.0.1:25:25"
       - 465
       - 587
     volumes:
@@ -35,8 +35,13 @@ services:
     volumes: 
       - "../rspamd/override.d:/etc/rspamd/override.d"
     depends_on:
+      - redis
       - unbound
       - db
+  redis:
+    image: library/redis:latest
+    volumes:
+     - redis-data:/data
   unbound:
     build:
       dockerfile: ./Dockerfile.unbound
@@ -59,3 +64,5 @@ services:
       - "../dovecot:/etc/dovecot"
     depends_on:
       - db
+volumes:
+    redis-data: 
