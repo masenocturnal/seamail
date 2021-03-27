@@ -2,6 +2,10 @@ FROM ubuntu:16.04
 MAINTAINER Andrew Mason <andrew@nocturnal.net.au>
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get update && apt-get install -y apt-transport-https
+RUN echo "deb http://ppa.launchpad.net/pdoes/dovecot/ubuntu xenial main" >> /etc/apt/sources.list.d/dovecot.list
+COPY dovecot.gpg.key /root/dovecot.gpg.key
+RUN apt-key add /root/dovecot.gpg.key
 RUN apt-get update && apt-get -y install dovecot-mysql dovecot-imapd dovecot-lmtpd dovecot-managesieved dovecot-sieve 
 RUN groupadd --gid 1001 vmail_delivery
 RUN useradd -b /var/mail/virtual vmail
@@ -13,4 +17,4 @@ RUN useradd -b /home/quota quota_warning
 #VOLUME ["../dovecot", "/etc/dovecot"]
 
 EXPOSE 993
-CMD ["/usr/sbin/dovecot", "-F", "-c", "/etc/dovecot/dovecot.conf"] 
+CMD ["/usr/sbin/dovecot", "-F", "-c", "/etc/dovecot/dovecot.conf"]
